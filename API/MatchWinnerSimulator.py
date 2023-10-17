@@ -5,8 +5,9 @@ from datetime import datetime
 with open('../FileConvert/rugby_data.json', 'r') as rugby_file:
     rugby_data = json.load(rugby_file)
 
-def calculer_proba_victoire(equipe1, equipe2):
+def calculer_proba_victoire(equipe1, equipe2, neutral):
     total_matchs = 0
+    nb_matchs = 0
     victoires_equipe1 = 0
     victoires_equipe2 = 0
     
@@ -20,24 +21,40 @@ def calculer_proba_victoire(equipe1, equipe2):
         
         # Vérifier si le match concerne les deux équipes spécifiées
         if (home_team == equipe1 and away_team == equipe2) or (home_team == equipe2 and away_team == equipe1):
-            if match_date.year >= 2010:
-                # Calculer le poids du match en fonction de son ancienneté
+            # Calculer le poids du match en fonction de son ancienneté
                 today = datetime.now().date()
                 difference_annees = today.year - match_date.year
                 
-                poids_match = 1
+                poids_match = 0.5
                 if difference_annees <= 2:
                     poids_match = 7  # Les matchs de moins de 2 ans sont 5 fois plus importants
                 elif difference_annees <= 5:
                     poids_match = 4  # Les matchs de moins de 5 ans sont 3 fois plus importants
+                elif difference_annees <= 10:
+                    poids_match = 2  # Les matchs de moins de 5 ans sont 3 fois plus importants
                 
-                # Vérifier quelle équipe a gagné le match
-                if (home_team == equipe1 and home_score > away_score) or (away_team == equipe1 and away_score > home_score):
-                    victoires_equipe1 += poids_match
-                    total_matchs += poids_match
-                elif (home_team == equipe2 and home_score > away_score) or (away_team == equipe2 and away_score > home_score):
-                    victoires_equipe2 += poids_match
-                    total_matchs += poids_match
+
+                if neutral == False :
+                    # Vérifier quelle équipe a gagné le match
+                    if (home_team == equipe1 and home_score > away_score) :
+                        victoires_equipe1 += poids_match
+                        total_matchs += poids_match
+                        nb_matchs += 1
+                    elif (away_team == equipe2 and away_score > home_score):
+                        victoires_equipe2 += poids_match
+                        total_matchs += poids_match
+                        nb_matchs += 1
+                else :
+                    # Vérifier quelle équipe a gagné le match
+                    if (home_team == equipe1 and home_score > away_score) or (away_team == equipe1 and away_score > home_score):
+                        victoires_equipe1 += poids_match
+                        total_matchs += poids_match
+                        nb_matchs += 1
+                    elif (home_team == equipe2 and home_score > away_score) or (away_team == equipe2 and away_score > home_score):
+                        victoires_equipe2 += poids_match
+                        total_matchs += poids_match
+                        nb_matchs += 1
+                
     
     # Calculer la probabilité de victoire de l'équipe1
     if total_matchs > 0:
@@ -51,12 +68,14 @@ def calculer_proba_victoire(equipe1, equipe2):
             print("victoires équipe 1:",victoires_equipe1)
             print("victoires équipe 2:",victoires_equipe2)
             print(total_matchs)
+            print(nb_matchs)
         else:
             equipe_gagnante = equipe2
             pourcentage_chance = proba_victoire_equipe2 * 100
             print("victoires équipe 1:",victoires_equipe1)
             print("victoires équipe 2:",victoires_equipe2)
             print(total_matchs)
+            print(nb_matchs)
         
         return {
             "equipe_gagnante": equipe_gagnante,
@@ -71,7 +90,7 @@ def calculer_proba_victoire(equipe1, equipe2):
         }
 
 # Exemple d'utilisation de la fonction
-equipe1 = "New Zealand"
-equipe2 = "Ireland"
-resultat = calculer_proba_victoire(equipe1, equipe2)
+equipe1 = "France"
+equipe2 = "South Africa"
+resultat = calculer_proba_victoire(equipe1, equipe2, False)
 print(f"L'équipe la plus susceptible de gagner est {resultat['equipe_gagnante']} avec {resultat['pourcentage_chance']:.2f}% de chance. Fiabilité : {resultat['fiabilite']:.2f}%")
