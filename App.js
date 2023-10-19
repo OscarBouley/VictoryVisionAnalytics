@@ -18,8 +18,8 @@ export default function App() {
   const [Equipe1, setEquipe1] = useState(require("./images/empty.png"));
   const [Equipe2, setEquipe2] = useState(require("./images/empty.png"));
   const [QuelleEquipe, setQuelleEquipe] = useState(0);
-  const [NameEquipe1, setNameEquipe1] = useState("Domicile");
-  const [NameEquipe2, setNameEquipe2] = useState("Extérieur");
+  const [NameEquipe1, setNameEquipe1] = useState("Home");
+  const [NameEquipe2, setNameEquipe2] = useState("Away");
   const [ProbaVictoireEquipe1, setProbaVictoireEquipe1] = useState("0");
   const [ProbaVictoireEquipe2, setProbaVictoireEquipe2] = useState("0");
   const [EquipeGagnante, setEquipeGagnante] = useState(null);
@@ -30,13 +30,18 @@ export default function App() {
   const handleModeCoupeDuMondeToggle = () => {
     if (NameEquipe2 === "France") {
       Alert.alert(
-        "Attention",
-        "Vous ne pouvez pas activer le mode Coupe du Monde si l'équipe de France joue à l'extérieur."
+        "Warning",
+        "You cannot activate World Cup mode if the French team is playing away."
       );
     } else {
       setModeCoupeDuMonde(!modeCoupeDuMonde);
+      calculateProbabilities(NameEquipe1, NameEquipe2);
     }
   };
+
+  useEffect(() => {
+    calculateProbabilities(NameEquipe1, NameEquipe2);
+  }, [modeCoupeDuMonde, NameEquipe1, NameEquipe2]);
 
   CoteTeam1 = isFinite(0 / ProbaVictoireEquipe1)
     ? 100 / ProbaVictoireEquipe1
@@ -51,17 +56,14 @@ export default function App() {
 
     if (QuelleEquipe === 1) {
       if (imagePath === Equipe2) {
-        Alert.alert("Attention", "Les équipes ne peuvent pas être les mêmes.");
+        Alert.alert("Warning", "Teams cannot be the same.");
         return;
       }
 
-      if (
-        modeCoupeDuMonde &&
-        imageTexts[imagePaths.indexOf(imagePath)] === "France"
-      ) {
+      if (modeCoupeDuMonde && Equipe2 === "France") {
         Alert.alert(
-          "Attention",
-          "L'équipe de France ne peut pas être sélectionnée en équipe extérieure en mode Coupe du Monde."
+          "Warning",
+          "The French team cannot be selected as an away team in World Cup mode."
         );
         return;
       }
@@ -75,14 +77,14 @@ export default function App() {
         imageTexts[imagePaths.indexOf(imagePath)] === "France"
       ) {
         Alert.alert(
-          "Attention",
-          "L'équipe de France ne peut pas être sélectionnée en équipe extérieure en mode Coupe du Monde."
+          "Warning",
+          "The French team cannot be selected as an away team in World Cup mode."
         );
         return;
       }
 
       if (imagePath === Equipe1) {
-        Alert.alert("Attention", "Les équipes ne peuvent pas être les mêmes.");
+        Alert.alert("Warning", "Teams cannot be the same.");
         return;
       }
 
@@ -186,10 +188,7 @@ export default function App() {
 
   const handleInversion = () => {
     if (modeCoupeDuMonde) {
-      Alert.alert(
-        "Attention",
-        "L'inversion des équipes n'est pas possible en mode Coupe du Monde."
-      );
+      Alert.alert("Warning", "Teams cannot be reversed in World Cup mode.");
     } else {
       const tempEquipe1 = Equipe1;
       const tempNameEquipe1 = NameEquipe1;
@@ -264,11 +263,11 @@ export default function App() {
         <View style={styles.blueTop}></View>
         <View style={styles.blueBottomTop}>
           <TouchableWithoutFeedback onPress={handleInversion}>
-            <Text style={styles.inversionButton}>Inverser les Équipes</Text>
+            <Text style={styles.inversionButton}>Swap Teams</Text>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={handleModeCoupeDuMondeToggle}>
             <Text style={styles.inversionButton}>
-              Mode Coupe du Monde : {modeCoupeDuMonde ? "Activé" : "Désactivé"}
+              World Cup mode : {modeCoupeDuMonde ? "Enabled" : "Disabled"}
             </Text>
           </TouchableWithoutFeedback>
         </View>
@@ -287,7 +286,7 @@ export default function App() {
               <Text style={styles.texte}>{CoteTeam1.toFixed(1)}</Text>
             </View>
             <View style={styles.subPart5}>
-              <Text style={styles.texte}>Côtes</Text>
+              <Text style={styles.texte}>Estimated odds</Text>
             </View>
             <View style={styles.subPart6}>
               <Text style={styles.texte}>{CoteTeam2.toFixed(1)}</Text>
@@ -295,10 +294,10 @@ export default function App() {
           </View>
           <View style={styles.blueBottomBottom}>
             <View style={styles.greenSubContainer3}>
-              <Text style={styles.titres2}>Probabilité de victoire</Text>
+              <Text style={styles.titres2}>Win probability</Text>
             </View>
             <View style={styles.greenSubContainer4}>
-              <Text style={styles.pourcentage}>{ProbaVictoireEquipe1}%</Text>
+              <Text style={styles.pourcentage1}>{ProbaVictoireEquipe1}%</Text>
               <View style={styles.progressBar}>
                 <View
                   style={[
@@ -313,14 +312,14 @@ export default function App() {
                   ]}
                 ></View>
               </View>
-              <Text style={styles.pourcentage}>{ProbaVictoireEquipe2}%</Text>
+              <Text style={styles.pourcentage2}>{ProbaVictoireEquipe2}%</Text>
             </View>
           </View>
         </View>
       </View>
       <View style={styles.overlayContainer}>
         <View style={styles.greenSubContainer}>
-          <Text style={styles.titres2}>Coupe du monde de rugby 2023</Text>
+          <Text style={styles.titres2}>Rugby World Cup 2023</Text>
         </View>
         <View style={styles.greenSubContainer2}>
           <TouchableWithoutFeedback
@@ -384,7 +383,7 @@ export default function App() {
           style={styles.modalContainer}
         >
           <View style={styles.modalContent}>
-            <Text style={styles.modalHeaderText}>Sélectionnez une Equipe</Text>
+            <Text style={styles.modalHeaderText}>Select a Team</Text>
             <ScrollView>
               {imagePaths.map((path, i) => (
                 <TouchableWithoutFeedback
@@ -434,11 +433,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "45%",
     height: "30%",
-    backgroundColor: "grey",
+    backgroundColor: "#FF3000",
     borderRadius: 30,
     overflow: "hidden",
   },
-  pourcentage: {
+  pourcentage1: {
+    textAlign: "right",
+    width: "28%",
+    fontFamily: "Colosseum-Medium",
+    fontSize: 28,
+    marginHorizontal: "5%",
+  },
+  pourcentage2: {
+    width: "28%",
     fontFamily: "Colosseum-Medium",
     fontSize: 28,
     marginHorizontal: "5%",
@@ -446,6 +453,7 @@ const styles = StyleSheet.create({
 
   progressBarLeft: {
     backgroundColor: "#2D3CFF",
+    borderRadius: 30,
   },
 
   progressBarRight: {
@@ -599,7 +607,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   subPart5: {
-    width: "25%",
+    width: "30%",
     height: "80%",
     alignItems: "center",
     justifyContent: "center",
