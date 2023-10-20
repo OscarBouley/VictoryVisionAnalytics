@@ -36,3 +36,6 @@ yarn-error.*
 
 # Datasets
 datasets/
+
+# __pycache__
+__pycache__/

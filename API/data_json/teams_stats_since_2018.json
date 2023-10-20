@@ -1,0 +1,112 @@
+{
+    "Wales": {
+        "matchs_joues": 63,
+        "victoires": 31,
+        "matchs_domicile": 35,
+        "victoires_domicile": 20,
+        "victoires_exterieur": 11,
+        "matchs_exterieur": 28,
+        "ratio_victoire": 0.49,
+        "ratio_victoire_domicile": 0.57,
+        "ratio_victoire_exterieur": 0.39
+    },
+    "Scotland": {
+        "matchs_joues": 50,
+        "victoires": 22,
+        "matchs_exterieur": 25,
+        "victoires_exterieur": 10,
+        "victoires_domicile": 12,
+        "matchs_domicile": 24,
+        "ratio_victoire": 0.44,
+        "ratio_victoire_domicile": 0.5,
+        "ratio_victoire_exterieur": 0.4
+    },
+    "France": {
+        "matchs_joues": 55,
+        "victoires": 35,
+        "matchs_domicile": 28,
+        "victoires_domicile": 25,
+        "victoires_exterieur": 10,
+        "matchs_exterieur": 26,
+        "ratio_victoire": 0.64,
+        "ratio_victoire_domicile": 0.89,
+        "ratio_victoire_exterieur": 0.38
+    },
+    "Ireland": {
+        "matchs_joues": 55,
+        "victoires": 43,
+        "matchs_exterieur": 26,
+        "victoires_exterieur": 16,
+        "victoires_domicile": 27,
+        "matchs_domicile": 29,
+        "ratio_victoire": 0.78,
+        "ratio_victoire_domicile": 0.93,
+        "ratio_victoire_exterieur": 0.62
+    },
+    "Italy": {
+        "matchs_joues": 45,
+        "victoires": 2,
+        "matchs_domicile": 21,
+        "victoires_domicile": 1,
+        "victoires_exterieur": 1,
+        "matchs_exterieur": 23,
+        "ratio_victoire": 0.04,
+        "ratio_victoire_domicile": 0.05,
+        "ratio_victoire_exterieur": 0.04
+    },
+    "England": {
+        "matchs_joues": 59,
+        "victoires": 33,
+        "matchs_exterieur": 25,
+        "victoires_exterieur": 10,
+        "victoires_domicile": 23,
+        "matchs_domicile": 34,
+        "ratio_victoire": 0.56,
+        "ratio_victoire_domicile": 0.68,
+        "ratio_victoire_exterieur": 0.4
+    },
+    "South Africa": {
+        "matchs_joues": 52,
+        "victoires": 32,
+        "matchs_domicile": 22,
+        "victoires_domicile": 17,
+        "victoires_exterieur": 15,
+        "matchs_exterieur": 29,
+        "ratio_victoire": 0.62,
+        "ratio_victoire_domicile": 0.77,
+        "ratio_victoire_exterieur": 0.52
+    },
+    "New Zealand": {
+        "matchs_joues": 56,
+        "victoires": 38,
+        "matchs_domicile": 28,
+        "victoires_domicile": 20,
+        "victoires_exterieur": 18,
+        "matchs_exterieur": 28,
+        "ratio_victoire": 0.68,
+        "ratio_victoire_domicile": 0.71,
+        "ratio_victoire_exterieur": 0.64
+    },
+    "Australia": {
+        "matchs_joues": 58,
+        "victoires": 18,
+        "matchs_domicile": 29,
+        "victoires_domicile": 13,
+        "victoires_exterieur": 5,
+        "matchs_exterieur": 29,
+        "ratio_victoire": 0.31,
+        "ratio_victoire_domicile": 0.45,
+        "ratio_victoire_exterieur": 0.17
+    },
+    "Argentina": {
+        "matchs_joues": 49,
+        "victoires": 10,
+        "matchs_domicile": 17,
+        "victoires_domicile": 4,
+        "victoires_exterieur": 6,
+        "matchs_exterieur": 31,
+        "ratio_victoire": 0.2,
+        "ratio_victoire_domicile": 0.24,
+        "ratio_victoire_exterieur": 0.19
+    }
+}

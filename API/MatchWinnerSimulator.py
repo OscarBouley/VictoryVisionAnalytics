@@ -2,11 +2,11 @@ import json
 from datetime import datetime
 
 # Charger les données du fichier rugby_data.json
-with open('../FileConvert/rugby_data.json', 'r') as rugby_file:
+with open('./data_json/rugby_data.json', 'r') as rugby_file:
     rugby_data = json.load(rugby_file)
 
 # Charger les statistiques des équipes depuis 2018
-with open('../FileConvert/teams_stats_since_2018.json', 'r') as stats_file:
+with open('./data_json/teams_stats_since_2018.json', 'r') as stats_file:
     equipe_stats = json.load(stats_file)
 
 def calculer_proba_victoire(equipe1, equipe2, neutral):
